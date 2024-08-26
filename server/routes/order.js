@@ -34,16 +34,17 @@ router.get(
       if (!product) {
         return res.status(404).json({ message: "Product not found." });
       }
-      console.log(id);
+
 
       const orders = await orderSchema.find({ product: id,});
-
-      console.log(product.id);
+      
+      const total = product.price * product.quantity
 
       res.json({
         product_id: product.id,
         product_name: product.name,
         quantity: product.quantity,
+        price: total,
         orders: {orders},
       });
     } catch (error) {
@@ -77,10 +78,12 @@ router.post(
           .json({ message: "Not enough product quantity available." });
       }
 
+      
       // สร้างคำสั่งซื้อใหม่
       const order = new orderSchema({
         product: id,
         productName: product.name,
+        price: product.price,
         quantity: quantity,
       });
 

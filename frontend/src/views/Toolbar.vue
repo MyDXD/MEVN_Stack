@@ -13,7 +13,7 @@
             <v-spacer></v-spacer>
 
             <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
-                <span class="mr-2">Latest Release</span>
+                <span class="mr-2">{{ user }}{{ usercookie }}</span>
                 <v-icon>mdi-open-in-new</v-icon>
             </v-btn>
         </v-app-bar>
@@ -26,7 +26,16 @@
 
 <script>
 export default {
-
+    data() {
+        return{
+            user : '',
+            usercookie:''
+        }
+    },
+    created() {
+        this.user = localStorage.getItem("User");
+        this.usercookie = this.$cookies.get("User")
+    }
 }
 </script>
 

@@ -7,6 +7,8 @@ import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
+Vue.use(require('vue-cookies'))
+
 new Vue({
   router,
   store,
