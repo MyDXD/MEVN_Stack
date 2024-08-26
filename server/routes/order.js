@@ -15,7 +15,7 @@ router.get("/orders",
       const orders = await orderSchema.find();
 
       res.json({
-        orders: orders,
+        orders: orders
       });
     } catch (error) {
       res.status(500).send(error.toString());
@@ -44,8 +44,8 @@ router.get(
         product_id: product.id,
         product_name: product.name,
         quantity: product.quantity,
-        price: total,
-        orders: {orders},
+        price: product.price,
+        orders: orders,
       });
     } catch (error) {
       res.status(500).send(error.toString());
@@ -78,12 +78,13 @@ router.post(
           .json({ message: "Not enough product quantity available." });
       }
 
-      
+      const total = product.price * quantity
       // สร้างคำสั่งซื้อใหม่
       const order = new orderSchema({
         product: id,
         productName: product.name,
         price: product.price,
+        total,
         quantity: quantity,
       });
 

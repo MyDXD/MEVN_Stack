@@ -27,7 +27,7 @@ router.get("/:id", [authToken, checkIsActive], async function (req, res, next) {
     console.log(products);
 
     res.send({
-      status: "success",
+      status: 200,
       masasge: "success",
       data: products,
     });
@@ -41,14 +41,14 @@ router.post("/", [authToken, checkIsActive], async function (req, res, next) {
 
   
     const { name, price, quantity } = req.body;
-
+    const productData = req.body
     await new productSchema({
       name,
       price,
       quantity,
     }).save();
 
-    res.send("create product success.");
+    res.status(201).send({status : 201 ,message : "create product success.",  data :  productData });
   } catch (error) {
     res.status(500).send(error.toString());
   }
@@ -59,14 +59,14 @@ router.put("/:id", [authToken, checkIsActive], async function (req, res, next) {
     const { id } = req.params;
 
     const { name, price, quantity } = req.body;
-
+    const productData = req.body
     await productSchema.findByIdAndUpdate(id, {
       name,
       price,
       quantity,
     });
 
-    res.send("updated product success.");
+    res.status(201).send({status : 201 , massage : "updated product success." ,data : productData});
   } catch (error) {
     res.status(500).send(error.toString());
   }
@@ -80,7 +80,7 @@ router.delete("/:id", [authToken, checkIsActive], async function (req, res, next
     await productSchema.findByIdAndDelete(id)
 
 
-    res.send("Deleted product success.");
+    res.status(200).send({status : 200 ,  massage : "Deleted product success."});
   } catch (error) {
     res.status(500).send(error.toString());
   }

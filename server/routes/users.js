@@ -55,6 +55,8 @@ router.post("/", [upload.single("profile")], async function (req, res, next) {
   try {
     const { name, age, email, password, role, isActive } = req.body;
 
+    const userData = req.body
+
     await new userSchema({
       name,
       age,
@@ -64,7 +66,11 @@ router.post("/", [upload.single("profile")], async function (req, res, next) {
       isActive,
     }).save();
 
-    res.send("create success.");
+    res.status(201).json({
+      status : 201,
+      masasge: "success",
+      data: userData,
+    });
   } catch (error) {
     res.status(500).send(error.toString());
   }
@@ -75,10 +81,23 @@ router.put("/:id", async function (req, res, next) {
     const { id } = req.params;
     const { name, age, email, password, role, isActive } = req.body;
 
+    await userSchema.findByIdAndUpdate(id, {
+      name,
+      age,
+      email,
+      password,
+      role,
+      isActive,
+    });
 
-    await userSchema.findByIdAndUpdate(id, { name, age, email, password, role, isActive});
-
-    res.send("update user success.");
+    res.status(201).send("update user success.", {
+      masasge: "success",
+      data: name,
+      age,
+      email,
+      role,
+      isActive,
+    });
   } catch (error) {
     res.status(500).send(error.toString());
   }

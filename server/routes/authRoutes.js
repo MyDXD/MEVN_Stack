@@ -20,9 +20,9 @@ router.post("/register", async (req, res) => {
       age,
     });
     await user.save();
-    res.status(201).json({ status : "201" ,message: "User registered successfully" });
+    res.status(201).json({ status : "201" ,message: "User registered successfully" , data : user });
   } catch (error) {
-    res.status(500).json({ message: error.toString() });
+    res.status(500).json({ message: error.toString()});
   }
 });
 
@@ -52,7 +52,8 @@ router.post("/login", async (req, res) => {
       }
     );
 
-    res.json({ id : user._id , email : user.email, userName : user.name, token ,   isActive : user.isActive });
+    // res.json({ id : user._id , email : user.email, userName : user.name, token ,   isActive : user.isActive });
+    res.status(200).json({ message : "success" , token : token,  data : user });
   } catch (error) {
     res.status(500).json({ message: error.toString() });
   }
