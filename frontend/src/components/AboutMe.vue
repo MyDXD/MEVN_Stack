@@ -8,27 +8,77 @@ Ref. https://v2.vuetifyjs.com/en/components/cards/
 
 <template>
     <div>
-        <v-img class="mx-auto mt-10 rounded" height="20%" width="20%" src="img/profile.png" cover></v-img>
+        <template>
+            <v-container style="margin-top: 7rem;">
+
+                <v-row>
+                    <!-- Div ฝั่งซ้าย 1 ก้อน -->
+                    <v-col width="100%" cols="4">
+                        <v-card class="pa-3">
+                            <img width="100%" src="img/profile.png" alt="Profile Image">
+                        </v-card>
+                    </v-col>
+
+                    <!-- Div ฝั่งขวาหลายๆ ก้อน -->
+                    <v-col cols="8">
+                        <v-row>
+                            <v-col cols="12">
+                                <v-card class="pa-3">
+                                    <b>ประส่วนตัว</b>
+                                    <v-text> <br>ชื่อนาม-สกุล : หัสดิน สาโส๊ะ <br>
+                                        ชื่อเล่น : ดิส<br>
+                                        ที่อยู่ : 107/3 ม.7 อ.บางกล่ำ ต.ท่าช้าง จ.สงขลา
+                                    </v-text>
+                                </v-card>
+                            </v-col>
+                            <v-col cols="8">
+                                <v-card class="pa-3">
+                                    <b>ประวัติการศึกษา</b>
+                                    <v-text>
+                                        <br>ประกาศนียบัตรวิชาชีพ (ปวช.) : วิทยาลัยเทคนิคหาดใหญ่ สาขา :
+                                        เทคโนโลยีสารสนเทศ<br>
+                                        ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.) : วิทยาลัยเทคนิคหาดใหญ่ สาขา :
+                                        เทคโนโลยีสารสนเทศ<br>
+                                        ปริญญาตรี : วิทยาลัยเทคนิคหาดใหญ่ สาขา : เทคโนโลยีสารสนเทศ<br>
+
+                                    </v-text>
+                                </v-card>
+                            </v-col>
+                            <v-col cols="4">
+                                <v-card class="pa-3">
+                                    <b>งานอดิเรก</b>
+                                    <v-text>
+                                        <br>
+                                        <ul>
+                                            <li>ศึกษาหาความรู้ใหม่ๆ</li>
+                                            <li>ดูหนัง,ฟังเพลง,เล่นเกม</li>
+                                            <li>ออกไปเจอกับโลกภายนอก</li>
+                                        </ul>
+                                    </v-text>
+                                    <v-text>
+                                        <b>สิ่งที่ชอบ</b> :
+                                        <span class="rainbow-text mb-2">Cat only</span>
+                                        <br>
+                                        <b>สิ่งที่ไม่ชอบ</b> : สัตว์มีพิษทุกชนิด
+                                    </v-text>
+                                </v-card>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-card class="pa-3">
+                                    <b>My skill</b> : HTML, CSS, Tailwind, Java, Script, React, Nodejs, Express,
+                                    MongoDB
+                                </v-card>
+                            </v-col>
+                        </v-row>
 
 
-        <v-card class="mx-auto text-xs-center mt-5" max-width="20%">
-           
-            <v-card-title class="text-md-center">
-              My Profile
-            </v-card-title>
+                    </v-col>
 
-            <v-card-subtitle>
-                ชื่อนาม-สกุล : หัสดิน สาโส๊ะ <br>
-                ชื่อเล่น : ดิส<br>
-                ประวัติการศึกษา : วิทยาลัยเทคนิดหาดใหญ่<br>
-                สิ่งที่ชอบ : แมว<br>
-                สิ่งที่ไม่ชอบ : สัตว์มีพิษ<br>
-                จุดแข็ง : ความพยายาม<br>
-                ทีมกีฬาที่ชอบ : -
-            </v-card-subtitle>
+                </v-row>
 
-    
-        </v-card>
+            </v-container>
+        </template>
+
     </div>
 </template>
 
@@ -38,4 +88,18 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.rainbow-text {
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  background-clip: text; /* เพิ่มคุณสมบัติแบบมาตรฐาน */
+  color: transparent;
+}
+
+
+.jutifly {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
