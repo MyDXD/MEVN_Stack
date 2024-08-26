@@ -34,8 +34,8 @@ const middleware = {
       const user = await userSchema.findById(req.auth.id);
       if (!user || !user.isActive) {
         return res
-          .status(403)
-          .json({ message: "Your account is not active. Access denied." });
+          .status(401)
+          .send({ status : 401, message: "Your account is not active. Access denied." });
       }
 
       // ถ้าผู้ใช้มีสถานะ active ให้ดำเนินการต่อไปยัง route ถัดไป
