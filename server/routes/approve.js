@@ -4,11 +4,12 @@ const userSchema = require("../models/user.model");
 const {
   authToken,
   checkIsActive,
+  checkAdmin
 } = require("../middleware/auth.middleware.js");
 
 router.put(
   "/approve/:id",
-  [authToken, checkIsActive],
+  [authToken, checkAdmin, checkIsActive],
   async function (req, res, next) {
     try {
       const { id } = req.params;

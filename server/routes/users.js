@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const userSchema = require("../models/user.model");
-const { authToken, checkIsActive } = require("../middleware/auth.middleware");
+const { authToken, checkIsActive, checkAdmin } = require("../middleware/auth.middleware");
 const multer = require("multer");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 /* GET users listing. */
-router.get("/", [authToken, checkIsActive], async function (req, res, next) {
+router.get("/", [authToken, checkAdmin ,checkIsActive], async function (req, res, next) {
   try {
     // const { search } = req.querys;
     let users = await userSchema.find({});
@@ -35,7 +35,7 @@ router.get("/", [authToken, checkIsActive], async function (req, res, next) {
   }
 });
 
-router.get("/:id", async function (req, res, next) {
+router.get("/:id", [authToken, checkAdmin ,checkIsActive], async function (req, res, next) {
   try {
     const { id } = req.params;
     let users = await userSchema.findById(id);
@@ -76,7 +76,7 @@ router.post("/", [upload.single("profile")], async function (req, res, next) {
   }
 });
 
-router.put("/:id", async function (req, res, next) {
+router.put("/:id",[authToken, checkAdmin ,checkIsActive], async function (req, res, next) {
   try {
     const { id } = req.params;
     const { name, age, email, password, role, isActive } = req.body;
@@ -103,7 +103,7 @@ router.put("/:id", async function (req, res, next) {
   }
 });
 
-router.delete("/:id", async function (req, res, next) {
+router.delete("/:id",[authToken, checkAdmin ,checkIsActive], async function (req, res, next) {
   try {
     const { id } = req.params;
 

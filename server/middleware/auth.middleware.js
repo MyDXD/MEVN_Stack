@@ -44,6 +44,29 @@ const middleware = {
       res.status(500).json({ message: error.toString() });
     }
   },
+
+
+  checkAdmin : async (req , res, next) => {
+    console.log("Checking Admin");
+
+    const user = await userSchema.findById(req.auth.id);
+    console.log(user);
+
+    try {
+
+      if (user.role != "admin") {
+        return res
+          .status(401)
+          .send({ status : 401, message: "Your account is not role Admin" });
+      }
+      next()
+    } catch (error) {
+      
+    }
+    
+
+    
+  }
 };
 
 module.exports = middleware;

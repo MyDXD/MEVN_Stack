@@ -1,6 +1,20 @@
 var express = require("express");
 var router = express.Router();
 const productSchema = require("../models/products.model.js");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/images");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, `${uniqueSuffix}-${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 const {
   authToken,
   checkIsActive,
@@ -38,14 +52,16 @@ router.get("/:id", [authToken, checkIsActive], async function (req, res, next) {
 
 router.post("/", [authToken, checkIsActive], async function (req, res, next) {
   try {
-
-  
     const { name, price, quantity } = req.body;
+    const image = req.file ? req.file.filename : null;
+
+
     const productData = req.body
     await new productSchema({
       name,
       price,
       quantity,
+      image
     }).save();
 
     res.status(201).send({status : 201 ,message : "create product success.",  data :  productData });

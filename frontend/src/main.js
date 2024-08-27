@@ -10,6 +10,7 @@ import axios from 'axios'
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
+
 Vue.use(require('vue-cookies'))
 
 new Vue({

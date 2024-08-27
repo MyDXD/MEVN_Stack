@@ -35,6 +35,7 @@ export default {
     },
     data() {
         return {
+            user : '',
             catname: '',
             name: 'Hassadin Sasoh',
             show: true,
@@ -55,8 +56,8 @@ export default {
             alert('แมวววววว')
         },
         alertParm(item) {
-            localStorage.setItem("User", item);
-            this.$cookies.set("User", item, "30s")
+            localStorage.setItem("Token", item);
+            // this.$cookies.set("User", item, "30s")
             alert(item)
         }
     }

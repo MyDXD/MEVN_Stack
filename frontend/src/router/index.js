@@ -12,18 +12,12 @@ const routes = [
     children: [
       {
         path: "/",
-        name: "home",
         component: HomeView,
       },
       {
         path: "/me",
         name: "me",
         component: () => import("../views/Me.vue"),
-      },
-      {
-        path: "/about",
-        name: "about",
-        component: () => import("../views/AboutView.vue"),
       },
       {
         path: "/simple",
@@ -40,14 +34,41 @@ const routes = [
         name: "/grade",
         component: () => import("../views/Grade.vue"),
       },
+      {
+        path: "/products",
+        name: "/products",
+        component: () => import("../views/Products.vue"),
+      },
+      {
+        path: "/products/:id",
+        name: "productDetails",
+        component: () => import("../views/ProductDetails.vue"),
+      },
     ],
   },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem("Token");
+
+  if (!token && to.name !== "Login") {
+    // ถ้าไม่มี token และไม่ใช่หน้า login ให้ redirect ไปยังหน้า login
+    next({ name: "Login" });
+  } else {
+    // ถ้ามี token หรือเป็นหน้า login ให้ดำเนินการต่อ
+    next();
+  }
 });
 
 export default router;
