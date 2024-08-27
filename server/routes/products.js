@@ -52,8 +52,7 @@ router.get("/:id", [authToken, checkIsActive], async function (req, res, next) {
 
 router.post("/", [authToken, checkIsActive], async function (req, res, next) {
   try {
-    const { name, price, quantity } = req.body;
-    const image = req.file ? req.file.filename : null;
+    const { name, price, quantity, detail } = req.body;
 
 
     const productData = req.body
@@ -61,7 +60,7 @@ router.post("/", [authToken, checkIsActive], async function (req, res, next) {
       name,
       price,
       quantity,
-      image
+      detail
     }).save();
 
     res.status(201).send({status : 201 ,message : "create product success.",  data :  productData });
@@ -74,12 +73,13 @@ router.put("/:id", [authToken, checkIsActive], async function (req, res, next) {
   try {
     const { id } = req.params;
 
-    const { name, price, quantity } = req.body;
+    const { name, price, quantity,detail } = req.body;
     const productData = req.body
     await productSchema.findByIdAndUpdate(id, {
       name,
       price,
       quantity,
+      detail
     });
 
     res.status(201).send({status : 201 , massage : "updated product success." ,data : productData});
