@@ -8,6 +8,7 @@
 
             <v-btn text to="/me">Me</v-btn>
             <v-btn text to="/products">Products</v-btn>
+            <v-btn text to="/cart">Cart</v-btn>
             <v-btn text to="/grade">Grade</v-btn>
             <v-btn text to="/simple">simple</v-btn>
             <v-btn @click="logout()">Logout</v-btn>

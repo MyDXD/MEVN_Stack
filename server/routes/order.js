@@ -7,6 +7,7 @@ const {
   checkIsActive,
 } = require("../middleware/auth.middleware.js");
 
+//ดู Order By ID ทั้งหมด
 router.get("/orders",
   [authToken, checkIsActive],
   async function (req, res, next) {
@@ -22,6 +23,28 @@ router.get("/orders",
     }
   }
 );
+
+
+//ดู Order By ID
+router.get("/orders/:id",
+  [authToken, checkIsActive],
+  async function (req, res, next) {
+    try {
+      const { id } = req.params;
+      console.log(id);
+      
+      const orders = await orderSchema.findById(id);
+
+      res.json({
+        orders: orders
+      });
+    } catch (error) {
+      res.status(500).send(error.toString());
+    }
+  }
+);
+
+
 
 router.get(
   "/products/:id/orders",
@@ -61,6 +84,7 @@ router.post(
       const { id } = req.params;
       const { quantity } = req.body;
 
+      
       const product = await productSchema.findById(id);
       if (!product) {
         return res.status(404).json({ message: "Product not found." });
@@ -92,6 +116,7 @@ router.post(
       await order.save();
 
       product.quantity -= quantity;
+
       await product.save();
 
       res.status(201).json({
